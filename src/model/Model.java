@@ -34,10 +34,6 @@ public class Model implements ModelInterface {
     this.generateNewTarget();
   }
 
-  private void createBoard() {
-
-  }
-
   @Override
   public void updateSnakePositions(int changeX, int changeY) {
     // Clears the board.
