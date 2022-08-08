@@ -10,7 +10,7 @@ public class SnakeMain {
 
   /**
    * The main method that sets up the board based on the command line arguments.
-   * @param args
+   * @param args the command line arguments
    */
   public static void main(String[] args) {
     int height;
