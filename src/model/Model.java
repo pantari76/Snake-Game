@@ -85,7 +85,12 @@ public class Model implements ModelInterface {
 
   @Override
   public boolean getGameOver() {
-    return this.gameOver;
+    if (this.snake.size() == (this.board.length * this.board[0].length) - 1) {
+      return true;
+    }
+    else {
+      return this.gameOver;
+    }
   }
 
   /**
