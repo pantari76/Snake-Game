@@ -14,5 +14,10 @@ public interface ModelInterface extends ModelState {
    * @param y what to add to the y position of the head of snake
    */
   void updateSnakePositions(int x, int y);
+  
+  /**
+   * This method restarts the game allowing the user to play again.
+   */
+  void restart();
 
 }
