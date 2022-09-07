@@ -39,6 +39,9 @@ public class Controller implements KeyListener {
     this.performOperations();
   }
 
+  /**
+   * This method is seperate from run() to allow for restarts to occur.
+   */
   private void performOperations() {
     while (!this.model.getGameOver()) {
       // The thread is put to sleep for 200 milliseconds which corresponds to the speed of the
