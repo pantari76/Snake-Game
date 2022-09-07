@@ -133,4 +133,13 @@ public class Model implements ModelInterface {
     return this.snake.size();
   }
 
+  @Override
+  public void restart() {
+    this.snake.clear();
+    this.clearBoard();
+    this.snake.add(new Snake(this.board.length / 2, this.board[0].length / 2));
+    this.board[this.board.length / 2][this.board[0].length / 2] = Board.SNAKE;
+    this.gameOver = false;
+    this.generateNewTarget();
+  }
 }
