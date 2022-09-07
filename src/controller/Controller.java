@@ -15,6 +15,7 @@ public class Controller implements KeyListener {
   private int moveY;
   private final ModelInterface model;
   private final View view;
+  private boolean restart;
 
   /**
    * Constructor to set up the Controller.
@@ -27,6 +28,7 @@ public class Controller implements KeyListener {
     this.moveX = 1;
     this.moveY = 0;
     this.view.setKeyListener(this);
+    this.restart = false;
   }
 
   /**
@@ -34,11 +36,15 @@ public class Controller implements KeyListener {
    * until the game is over.
    */
   public void run() {
+    this.performOperations();
+  }
+
+  private void performOperations() {
     while (!this.model.getGameOver()) {
       // The thread is put to sleep for 200 milliseconds which corresponds to the speed of the
       // snake and the speed at which inputs are registered.
       try {
-        Thread.sleep(200);
+        Thread.sleep(180);
       }
       catch (InterruptedException ignored) {}
       this.model.updateSnakePositions(this.moveX, this.moveY);
@@ -46,6 +52,14 @@ public class Controller implements KeyListener {
       this.view.renderMessage("Score: " + this.model.getScore());
     }
     this.view.renderMessage("Game over! Score: " + this.model.getScore());
+    while(!this.restart) {
+      try {
+        Thread.sleep(20);
+      }
+      catch (InterruptedException ignored) {}
+    }
+    this.restart = false;
+    this.run();
   }
 
   /**
@@ -57,21 +71,34 @@ public class Controller implements KeyListener {
     int command = e.getKeyCode();
     switch (command) {
       case KeyEvent.VK_LEFT:
-        this.moveX = -1;
-        this.moveY = 0;
+        if (this.moveX != 1) {
+          this.moveX = -1;
+          this.moveY = 0;
+        }
         break;
       case KeyEvent.VK_RIGHT:
-        this.moveX = 1;
-        this.moveY = 0;
+        if (this.moveX != -1) {
+          this.moveX = 1;
+          this.moveY = 0;
+        }
         break;
       case KeyEvent.VK_UP:
-        this.moveX = 0;
-        this.moveY = -1;
+        if (this.moveY != 1) {
+          this.moveX = 0;
+          this.moveY = -1;
+        }
         break;
       case KeyEvent.VK_DOWN:
-        this.moveX = 0;
-        this.moveY = 1;
+        if (this.moveY != -1) {
+          this.moveX = 0;
+          this.moveY = 1;
+        }
         break;
+      case KeyEvent.VK_R:
+        this.restart = true;
+        this.moveX = 1;
+        this.moveY = 0;
+        this.model.restart();
     }
   }
 
@@ -82,3 +109,4 @@ public class Controller implements KeyListener {
   public void keyTyped(KeyEvent e) {}
 
 }
+
